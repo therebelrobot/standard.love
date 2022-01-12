@@ -3,12 +3,17 @@ module.exports = {
   webpack: function (config) {
     config.module.rules.push({
       test: /\.md$/,
-      use: 'raw-loader',
+      use: "raw-loader",
+    });
+    config.module.rules.push({
+      test: /\.mjs$/,
+      include: /node_modules/,
+      type: "javascript/auto",
     });
     config.resolve.alias = {
       ...config.resolve.alias,
-      '~': __dirname,
+      "~": __dirname,
     };
     return config;
-  }
+  },
 };
