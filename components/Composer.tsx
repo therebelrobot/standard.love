@@ -199,7 +199,7 @@ export const Composer: React.FC = () => {
       const image = stageRef.current.toDataURL();
       console.log({ image });
       set(`display.frameImages.${currentFrame}`, image);
-    }, 5000);
+    }, 1000);
     return () => {
       clearInterval(repeater);
     };

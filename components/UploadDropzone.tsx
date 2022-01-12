@@ -61,13 +61,11 @@ export const UploadDropzone = ({ children }) => {
         variant="outline"
         position="absolute"
         zIndex={10}
-        right={20}
+        right="20px"
+        top="70px"
       >
-        <Button top={20} onClick={open}>
-          Upload
-        </Button>
+        <Button onClick={open}>Upload</Button>
         <Button
-          top={20}
           onClick={() => {
             console.log("download");
             const doc = new YAML.Document();

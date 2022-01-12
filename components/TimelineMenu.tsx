@@ -154,11 +154,11 @@ export const TimelineMenu = () => {
       display="flex"
       flexDirection="row"
     >
-      <Box flex={1} borderRightWidth={1} flexShrink={0}>
+      <Box width="300px" borderRightWidth={1} flexShrink={0} overflow="auto">
         <EnabledLeds currentFrame={currentFrame} />
       </Box>
       <Box
-        flex={3}
+        flex={1}
         overflowX="auto"
         borderRightWidth={1}
         display="flex"
@@ -197,7 +197,7 @@ export const TimelineMenu = () => {
           );
         })}
       </Box>
-      <Stack spacing={3} flex={1} flexShrink={0} p="8px">
+      <Stack spacing={3} width="300px" flexShrink={0} p="8px">
         <ButtonGroup size="sm" isAttached variant="outline">
           <IconButton
             aria-label={isPlaying ? "Pause frames" : "Play frames"}
