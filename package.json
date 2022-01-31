@@ -41,6 +41,7 @@
     "arraybuffer-to-string": "^1.0.2",
     "fecha": "^4.2.0",
     "file-saver": "^2.0.5",
+    "file-type": "^16.5.3",
     "framer-motion": "^5",
     "glob": "^7.1.6",
     "gray-matter": "^4.0.2",

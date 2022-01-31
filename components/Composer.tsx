@@ -136,7 +136,6 @@ const Section = ({ index }) => {
     const offset = [...Array(index).keys()]
       .map((s) => sections[s].h * sections[s].w)
       .reduce((pv, cv) => pv + cv, 0);
-    console.log({ section: section.id, offset });
     set(`project.sections.${index}.pixelOffset`, offset);
   }, [sections.length, totalPixels, set, currentFrame]);
 
@@ -174,7 +173,6 @@ const SectionList = () => {
   const { "project.sections": sections, "display.ledSize": ledSize } = useStore(
     ["project.sections", "display.ledSize"]
   );
-  console.log("SectionList", sections, ledSize);
   return (
     <>
       {sections.map((section, index) => {
@@ -194,10 +192,8 @@ export const Composer: React.FC = () => {
 
   useEffect(() => {
     const repeater = setInterval(() => {
-      console.log("looping", stageRef);
       if (!stageRef.current) return;
       const image = stageRef.current.toDataURL();
-      console.log({ image });
       set(`display.frameImages.${currentFrame}`, image);
     }, 1000);
     return () => {
@@ -205,7 +201,6 @@ export const Composer: React.FC = () => {
     };
   }, [set, currentFrame]);
 
-  console.log({ sections });
   return (
     <Box width="100vw" height="calc(100vh - 114px)">
       <UploadDropzone>

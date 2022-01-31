@@ -1,6 +1,8 @@
 import Head from "next/head";
 
 import dynamic from "next/dynamic";
+import { Box } from "@chakra-ui/react";
+
 const NoSSRComposer = dynamic(
   () => import("../components/Composer").then((mod) => mod.Composer),
   {
@@ -10,13 +12,13 @@ const NoSSRComposer = dynamic(
 
 const ComposerPage = (props: {}) => {
   return (
-    <div className="content">
+    <Box className="content" overflow="hidden">
       <Head>
         <title>Compose SLED file</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <NoSSRComposer />
-    </div>
+    </Box>
   );
 };
 

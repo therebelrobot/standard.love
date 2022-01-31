@@ -4,11 +4,21 @@ import { Footer } from "../components/Footer";
 import { globals } from "../globals";
 import { Header } from "../components/Header";
 import "../styles/base.css";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+
+const theme = extendTheme({
+  styles: {
+    global: {
+      "html, body": {
+        overflow: "hidden",
+      },
+    },
+  },
+});
 
 const App: React.FC = ({ Component, pageProps }: any) => {
   return (
-    <div className="container">
+    <>
       <Head>
         {globals.googleAnalyticsId && (
           <script
@@ -30,13 +40,13 @@ const App: React.FC = ({ Component, pageProps }: any) => {
           ></script>
         )}
       </Head>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <Header />
 
         <Component {...pageProps} />
         <Footer />
       </ChakraProvider>
-    </div>
+    </>
   );
 };
 

@@ -5,6 +5,7 @@ import ab2str from "arraybuffer-to-string";
 import YAML from "yaml";
 import { useStore } from "../state";
 import { saveAs } from "file-saver";
+import fileTypeCore from "file-type/core";
 
 // import and parse config
 export const UploadDropzone = ({ children }) => {
@@ -26,13 +27,26 @@ export const UploadDropzone = ({ children }) => {
           // Do whatever you want with the file contents
           const binaryStr = reader.result;
 
-          const text = ab2str(binaryStr);
-          const config = YAML.parse(text);
-          if (!config.frames) config.frames = [];
-          if (!config.frames[0]) config.frames[0] = [];
+          if (!binaryStr || typeof binaryStr === "string") {
+            console.log("invalid type");
+            return;
+          }
 
-          console.log(config);
-          setRoot(config);
+          fileTypeCore.fromBuffer(binaryStr).then((type) => {
+            if (type?.mime && type.mime.includes("image")) {
+              console.log("this is an image!");
+              return;
+            }
+            console.log({ type });
+
+            const text = ab2str(binaryStr);
+            const config = YAML.parse(text);
+            if (!config.frames) config.frames = [];
+            if (!config.frames[0]) config.frames[0] = [];
+
+            console.log(config);
+            setRoot(config);
+          });
         };
         reader.readAsArrayBuffer(file);
       });

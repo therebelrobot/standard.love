@@ -13,6 +13,7 @@ const defaultState = {
       g: "0",
       b: "0",
     },
+    isPlaying: false,
   },
   version: "v0.0.1-alpha",
   author: "Aster (@therebelrobot)",

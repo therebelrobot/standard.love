@@ -6,12 +6,9 @@ import {
   Button,
   PopoverTrigger,
   PopoverContent,
-  PopoverHeader,
   PopoverBody,
-  PopoverFooter,
   PopoverArrow,
   PopoverCloseButton,
-  PopoverAnchor,
   InputGroup,
   InputLeftAddon,
   Input,
@@ -23,7 +20,7 @@ import {
   ButtonGroup,
   IconButton,
 } from "@chakra-ui/react";
-import { IoIosPlay, IoIosSquare, IoIosPause } from "react-icons/io";
+import { IoIosPlay, IoIosSquare, IoIosPause, IoIosCopy } from "react-icons/io";
 import { useStore } from "../state";
 import { useWindowSize } from "@react-hook/window-size/throttled";
 import { EnabledLeds } from "./EnabledLeds";
@@ -41,7 +38,6 @@ const FramePreview = ({ width, index }) => {
     "set",
     "project.frames",
   ]);
-  console.log({ frames });
   return (
     <Box
       flexShrink={0}
@@ -89,6 +85,30 @@ const FramePreview = ({ width, index }) => {
           x
         </Box>
       )}
+      <Box
+        borderWidth="1px"
+        width="32px"
+        height="32px"
+        position="absolute"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        right="8px"
+        top="40px"
+        onClick={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          const newFrames = [...frames];
+          newFrames.splice(index + 1, 0, frames[currentFrame]);
+          set("project.frames", newFrames);
+        }}
+        borderRadius="4px"
+        _hover={{
+          borderColor: "red.500",
+        }}
+      >
+        <IoIosCopy />
+      </Box>
       {frameImage && <Image width="100%" height="100%" src={frameImage} />}
     </Box>
   );
@@ -142,7 +162,6 @@ export const TimelineMenu = () => {
     setWidth((height * winWidth) / (winHeight - 348));
   }, [winWidth, winHeight, setWidth]);
 
-  console.log({ currentFrame, frameImages });
   return (
     <Box
       width="100%"
@@ -164,11 +183,10 @@ export const TimelineMenu = () => {
         display="flex"
         flexDirection="row"
         padding="8px"
-        justifyContent="center"
         gap="8px"
+        justifyContent="flex-start"
       >
         {frames.map((f, index, arr) => {
-          console.log({ f, index });
           return (
             <>
               <FramePreview width={width} index={index} />
