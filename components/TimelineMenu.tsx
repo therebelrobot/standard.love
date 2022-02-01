@@ -109,6 +109,68 @@ const FramePreview = ({ width, index }) => {
       >
         <IoIosCopy />
       </Box>
+
+      {index > 0 && (
+        <Box
+          borderWidth="1px"
+          width="32px"
+          height="32px"
+          position="absolute"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          right="8px"
+          top="72px"
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            const newFrames = [...frames];
+            newFrames.splice(index, 1);
+            newFrames.splice(index - 1, 0, frames[currentFrame]);
+            if (currentFrame === index && index !== 0) {
+              set("display.currentFrame", currentFrame - 1);
+            }
+            set("project.frames", newFrames);
+          }}
+          borderRadius="4px"
+          _hover={{
+            borderColor: "blue.500",
+          }}
+        >
+          {"<"}
+        </Box>
+      )}
+
+      {index < frames.length - 1 && (
+        <Box
+          borderWidth="1px"
+          width="32px"
+          height="32px"
+          position="absolute"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          right="8px"
+          top="104px"
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            const newFrames = [...frames];
+            newFrames.splice(index, 1);
+            newFrames.splice(index + 1, 0, frames[currentFrame]);
+            if (currentFrame === index && index !== 0) {
+              set("display.currentFrame", currentFrame - 1);
+            }
+            set("project.frames", newFrames);
+          }}
+          borderRadius="4px"
+          _hover={{
+            borderColor: "blue.500",
+          }}
+        >
+          {">"}
+        </Box>
+      )}
       {frameImage && <Image width="100%" height="100%" src={frameImage} />}
     </Box>
   );

@@ -37,6 +37,8 @@
     "@chakra-ui/react": "^1.7.3",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@ffmpeg/core": "^0.10.0",
+    "@ffmpeg/ffmpeg": "^0.10.1",
     "@react-hook/window-size": "^3.0.7",
     "arraybuffer-to-string": "^1.0.2",
     "fecha": "^4.2.0",

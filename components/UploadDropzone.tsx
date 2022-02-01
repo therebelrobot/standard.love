@@ -6,6 +6,7 @@ import YAML from "yaml";
 import { useStore } from "../state";
 import { saveAs } from "file-saver";
 import fileTypeCore from "file-type/core";
+import { ffmpeg } from "../utils/ffmpeg";
 
 // import and parse config
 export const UploadDropzone = ({ children }) => {
@@ -33,11 +34,32 @@ export const UploadDropzone = ({ children }) => {
           }
 
           fileTypeCore.fromBuffer(binaryStr).then((type) => {
+            console.log({ type });
             if (type?.mime && type.mime.includes("image")) {
               console.log("this is an image!");
               return;
             }
-            console.log({ type });
+            if (type?.mime && type.mime.includes("video")) {
+              console.log("this is a video!", file.name);
+              ffmpeg.FS("writeFile", file.name, new Uint8Array(binaryStr));
+              /* Read data from MEMFS */
+              ffmpeg.FS("readFile", file.name);
+              const fps = 1000 / project.frameDelay;
+              ffmpeg
+                .run("-i", file.name, "-r", String(fps), "%04d.jpg")
+                .then(() => {
+                  const images = ffmpeg
+                    .FS("readdir", "/")
+                    .filter((name) => name.includes(".jpg"))
+                    .map((file) => ffmpeg.FS("readFile", file));
+                  console.log({ images });
+
+                  // ffmpeg -i file.mpg -r 1/1 $filename%03d.jpg
+                  ffmpeg.FS("unlink", file.name);
+                });
+              /* Delete file in MEMFS */
+              return;
+            }
 
             const text = ab2str(binaryStr);
             const config = YAML.parse(text);

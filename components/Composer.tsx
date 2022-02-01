@@ -3,10 +3,13 @@ import React, { useCallback, useEffect, useState } from "react";
 // import Konva from "konva";
 import { Stage, Layer, Rect, Text, Group, Circle } from "react-konva";
 import { useStore } from "../state";
+import { ffmpeg } from "../utils/ffmpeg";
 import { GRID } from "./constants";
 import { EnabledLeds } from "./EnabledLeds";
 import { TimelineMenu } from "./TimelineMenu";
 import { UploadDropzone } from "./UploadDropzone";
+
+// ffmpeg
 
 const Pixel = ({ currentFrame, section, index }) => {
   const {
@@ -183,6 +186,7 @@ const SectionList = () => {
 };
 
 export const Composer: React.FC = () => {
+  console.log({ ffmpeg });
   const {
     "project.sections": sections,
     "display.currentFrame": currentFrame,

@@ -14,6 +14,13 @@ const defaultState = {
       b: "0",
     },
     isPlaying: false,
+    frameGuides: [
+      // {
+      //   origin: [0, 0],
+      //   size: [0, 0],
+      //   image: "",
+      // },
+    ],
   },
   version: "v0.0.1-alpha",
   author: "Aster (@therebelrobot)",
